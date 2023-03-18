@@ -1,0 +1,87 @@
+﻿@model Company
+
+@*enctype is necessary when we have to do upload operations*@
+<form method="post" asp-controller="Company" asp-action="Upsert" asp-area="Admin">
+
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+
+                <div class="row pb-2">
+                    <h2 class="text-primary">@(Model.Id != 0 ? "Update" : "Add") Company</h2>
+                    <hr />
+                </div>
+
+                @*Because we are using them in the post method and they won't be passed if we have not defined this parameters inside the form.
+                Parameters that are used in forms will be passed in the POST request. *@
+                <input asp-for="@Model.Id" hidden />
+
+
+                <div class="mb-3">
+                    <label asp-for="@Model.Name"></label>
+                    <input asp-for="@Model.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="@Model.PhoneNumber"></label>
+                    <input asp-for="@Model.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.StreetAddress"></label>
+                    <textarea asp-for="@Model.StreetAddress" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="@Model.StreetAddress" class="text-danger"></span>
+                </div>
+
+
+                <div class="mb-3 col-6">
+                    <label asp-for="@Model.City"></label>
+                    <input asp-for="@Model.City" class="form-control" />
+                    <span asp-validation-for="@Model.City" class="text-danger"></span>
+                </div>
+
+
+                <div class="mb-3 col-6">
+                    <label asp-for="@Model.State"></label>
+                    <input asp-for="@Model.State" class="form-control" />
+                    <span asp-validation-for="@Model.State" class="text-danger"></span>
+                </div>
+
+
+                <div class="mb-3 col-6">
+                    <label asp-for="@Model.PostalCode"></label>
+                    <input asp-for="@Model.PostalCode" class="form-control" />
+                    <span asp-validation-for="@Model.PostalCode" class="text-danger"></span>
+                </div>
+
+
+                <div class="col-12">
+
+                    @*In create operation Image url must be provided to we check it via javascript function*@
+                    @if (Model.Id == 0)
+                    {
+                        <button class="btn btn-primary" type="submit" style="width:150px">Create</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary" type="submit" style="width:150px">Update</button>
+                    }
+
+                    <a asp-controller="Company" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+</form>
+
+@*Inbuilt validations to perform client side validations*@
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
